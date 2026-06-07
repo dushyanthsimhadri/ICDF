@@ -1,0 +1,89 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: icdf-sqlite-pvc
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 10Gi
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: icdf-backend
+  labels:
+    app: icdf-backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: icdf-backend
+  template:
+    metadata:
+      labels:
+        app: icdf-backend
+    spec:
+      containers:
+        - name: backend
+          image: icdf-backend:latest
+          ports:
+            - containerPort: 8000
+          env:
+            - name: DATABASE_URL
+              value: "sqlite:////app/db_data/icdf.db"
+          volumeMounts:
+            - name: db-volume
+              mountPath: /app/db_data
+      volumes:
+        - name: db-volume
+          persistentVolumeClaim:
+            claimName: icdf-sqlite-pvc
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: icdf-backend-service
+spec:
+  selector:
+    app: icdf-backend
+  ports:
+    - protocol: TCP
+      port: 8000
+      targetPort: 8000
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: icdf-frontend
+  labels:
+    app: icdf-frontend
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: icdf-frontend
+  template:
+    metadata:
+      labels:
+        app: icdf-frontend
+    spec:
+      containers:
+        - name: frontend
+          image: icdf-frontend:latest
+          ports:
+            - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: icdf-frontend-service
+spec:
+  type: LoadBalancer
+  selector:
+    app: icdf-frontend
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80

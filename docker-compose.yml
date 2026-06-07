@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    volumes:
+      - backend_db:/app/db_data
+    environment:
+      - DATABASE_URL=sqlite:///db_data/icdf.db
+      - SECRET_KEY=ICDF_ENTERPRISE_SECRET_KEY_CHANGE_IN_PRODUCTION
+    restart: always
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+    restart: always
+
+volumes:
+  backend_db:

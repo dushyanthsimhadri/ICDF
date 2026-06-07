@@ -1,0 +1,132 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* CSS Theme Variables Matrix */
+:root, .theme-dark {
+  --theme-bg-1: #060B14;
+  --theme-bg-2: #0F172A;
+  --theme-bg-3: #111827;
+  --theme-accent: #3B82F6; /* Electric Blue */
+  --theme-accent-glow: rgba(59, 130, 246, 0.45);
+  --theme-border: rgba(255, 255, 255, 0.08);
+  --theme-border-hover: rgba(59, 130, 246, 0.35);
+  --theme-card-bg: rgba(255, 255, 255, 0.06);
+  --theme-glow: 0 0 15px rgba(59, 130, 246, 0.25);
+  --theme-text: #E2E8F0;
+  --theme-muted: #94A3B8;
+}
+
+.theme-neon-blue {
+  --theme-bg-1: #020617;
+  --theme-bg-2: #0B1E3F;
+  --theme-bg-3: #030712;
+  --theme-accent: #06B6D4; /* Cyan */
+  --theme-accent-glow: rgba(6, 182, 212, 0.5);
+  --theme-border: rgba(6, 182, 212, 0.15);
+  --theme-border-hover: rgba(6, 182, 212, 0.45);
+  --theme-card-bg: rgba(6, 182, 212, 0.04);
+  --theme-glow: 0 0 20px rgba(6, 182, 212, 0.3);
+  --theme-text: #E2E8F0;
+  --theme-muted: #94A3B8;
+}
+
+.theme-cyber-purple {
+  --theme-bg-1: #090514;
+  --theme-bg-2: #1E0C3F;
+  --theme-bg-3: #05020A;
+  --theme-accent: #8B5CF6; /* AI Purple */
+  --theme-accent-glow: rgba(139, 92, 246, 0.5);
+  --theme-border: rgba(139, 92, 246, 0.18);
+  --theme-border-hover: rgba(139, 92, 246, 0.45);
+  --theme-card-bg: rgba(139, 92, 246, 0.05);
+  --theme-glow: 0 0 20px rgba(139, 92, 246, 0.35);
+  --theme-text: #F1F5F9;
+  --theme-muted: #A78BFA;
+}
+
+.theme-emerald {
+  --theme-bg-1: #020806;
+  --theme-bg-2: #072F21;
+  --theme-bg-3: #010503;
+  --theme-accent: #10B981; /* Emerald */
+  --theme-accent-glow: rgba(16, 185, 129, 0.5);
+  --theme-border: rgba(16, 185, 129, 0.15);
+  --theme-border-hover: rgba(16, 185, 129, 0.45);
+  --theme-card-bg: rgba(16, 185, 129, 0.04);
+  --theme-glow: 0 0 20px rgba(16, 185, 129, 0.3);
+  --theme-text: #E2E8F0;
+  --theme-muted: #6EE7B7;
+}
+
+.theme-slate {
+  --theme-bg-1: #0F172A;
+  --theme-bg-2: #1E293B;
+  --theme-bg-3: #0F172A;
+  --theme-accent: #94A3B8; /* Slate */
+  --theme-accent-glow: rgba(148, 163, 184, 0.3);
+  --theme-border: rgba(255, 255, 255, 0.08);
+  --theme-border-hover: rgba(148, 163, 184, 0.3);
+  --theme-card-bg: rgba(255, 255, 255, 0.05);
+  --theme-glow: 0 0 15px rgba(148, 163, 184, 0.15);
+  --theme-text: #E2E8F0;
+  --theme-muted: #94A3B8;
+}
+
+body {
+  background-color: var(--theme-bg-1);
+  background-image: 
+    radial-gradient(at 0% 0%, rgba(59, 130, 246, 0.05) 0px, transparent 45%),
+    radial-gradient(at 100% 0%, rgba(139, 92, 246, 0.08) 0px, transparent 45%),
+    radial-gradient(at 50% 100%, rgba(16, 185, 129, 0.05) 0px, transparent 45%),
+    linear-gradient(rgba(255, 255, 255, 0.002) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.002) 1px, transparent 1px);
+  background-size: 100% 100%, 100% 100%, 100% 100%, 50px 50px, 50px 50px;
+  font-family: 'Outfit', 'Inter', sans-serif;
+  color: var(--theme-text);
+  animation: pulseBackground 12s infinite alternate ease-in-out;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.2);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--theme-border-hover);
+  border-radius: 4px;
+}
+
+/* Moving ambient background keyframe */
+@keyframes pulseBackground {
+  0% {
+    background-position: 0% 0%, 100% 100%, 50% 50%, 0 0, 0 0;
+  }
+  100% {
+    background-position: 10% 10%, 90% 90%, 60% 40%, 0 0, 0 0;
+  }
+}
+
+/* Shared Premium Glass Class */
+.premium-glass {
+  background: var(--theme-card-bg);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--theme-border);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.premium-glass-hover:hover {
+  border-color: var(--theme-border-hover);
+  box-shadow: var(--theme-glow);
+}
+
+/* Metallic highway styling */
+.glass-highway {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.02) 0%, rgba(255, 255, 255, 0.05) 50%, rgba(255, 255, 255, 0.02) 100%);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
